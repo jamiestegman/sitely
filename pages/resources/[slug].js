@@ -17,6 +17,10 @@ const ArticleGrid = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 75% 1fr;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 100%;
+  }
 `
 
 const Article = styled.article`
@@ -122,7 +126,7 @@ const Article = styled.article`
 
     & > .title {
       h1 {
-        font-size: 40px;
+        font-size: 32px;
       }
       p {
         max-width: 100%;
