@@ -1,0 +1,106 @@
+---
+author: Jamie Stegman
+date: 06/10/21
+title: Stripe's Homepage
+description: Stripe has a beautifully styled home page that makes use of trustworthy colors and skewed separators with consistent angles to catch your eye and direct the flow down the page. Some interesting JavaScript is employed also to create a few great effects.
+img: /images/stripe/stripe_atf.png
+img_full: /images/stripe/stripe_full.png
+website: https://stripe.com
+tags: [SaaS, B2B, Finance]
+---
+
+
+## Creating the animated gradient
+
+No doubt the biggest attention-grabber on the page is the colorful, animated mesh gradient background in the hero.
+
+This effect is created through clever use of custom WebGL inside a HTML Canvas element, as well as three layers of text in order to give the impression that the headline is fully opaque and somewhat transparent at the same time.
+
+Essentially what Stripe developers did to achieve the background, was use their own minimal version of WebGL (titled minigl in their code) and a Gradient class that holds the gradient color values and animation properties.
+The part that interests me the most, however, is their intelligent usage of a ScrollObserver. When the gradient is totally out of the viewport, the effect is disabled, thus saving browsers resources allowing for better page performance.
+
+[Kevin Hufnagl](https://kevinhufnagl.com/how-to-stripe-website-gradient-effect/) did a fantastic writeup of this interaction, and also organised the JavaScript code to generate the gradient which you can find in [this codepen](https://codepen.io/kevinhufnagl/pen/YzwBemd).
+
+To achieve the hero text effect, Stripe utilises three duplicated layers of text. These are stacked as follows (from highest z-index to lowest):
+
+> 1. Text with 'mix-blend-mode: color-burn;' and 'position: absolute;'.
+> 2. Text with 'opacity: 0.2;' and 'position: absolute;'.
+> 3. *Canvas Gradient*
+> 4. Fully opaque, regular text.
+
+Put the canvas inside a shaped div with overflow hidden, set a few CSS variables for the gradient colors (you can find the ones that Stripe uses in the sidebar of this page), then stack the layers of text inside a relatively positioned wrapper and voila!
+
+
+## Out of this world UI/UX
+
+Ok... here's the sauce.
+
+Box shadows and smooth popovers. There, I said it.
+
+No, really, the biggest and most useful front-end takeaway I had from Stripe (especially Stripe's user dashboard after signing in) is how they create a great *feel* to their web pages.
+
+Stripe's real CSS **:focus** state for elements looks very similar to this:
+
+```
+button:focus {
+  box-shadow: 0 0 0 4px rgb(58 151 212 / 36%);
+  transition: box-shadow .24s;
+}
+```
+
+Try it out on the buttons below:
+
+<div style="margin: 2rem 0;"><button class="stripe-btn stripe-btn-primary">Click me!</button> <button class="stripe-btn">Click me!</button></div>
+
+
+Implementing this focus state on your page elements will make everything feel a lot smoother and more interactive.
+
+If your page elements already have a box-shadow, you can stack the shadows together to have them work simultaneously by separating the different shadows with commas, for example:
+
+```
+.card {
+  box-shadow: 0 5px 15px -3px rgba(9, 9, 9, 0.15);
+}
+
+.card:focus {
+  box-shadow: 0 5px 15px -3px rgba(9, 9, 9, 0.15), 0 0 0 4px rgb(58 151 212 / 36%);
+}
+```
+
+Next, let's focus on the other key element of Stripe's buttery interface: popovers.
+
+Most of their dropdown menus, especially the ones found on their dashboard are activated *on click* as opposed to *on hover*. Whilst hovering to open a dropdown is not always bad, this method instead serves to make interactions very intentional and impactful. If your menus open on hover, users could be surprised when greeted with an interface they didn't quite expect by simply moving their mouse over the hoverable element by accident.
+
+It sounds insignificant, but makes a large overall impact on the feel of your site.
+
+As for the CSS, Stripe animates their popover menus in using opacity and transform transitioning. More specifically, the transition curve is a cubic-bezier, which is basically a type of easing function with four real numbers that control entry and exit points as well as the curvature. This tends to give the transition a more 'human' feel, rather than the predictability of a standard easing function. It is not always the right choice, but it provides some unique and appealing transition timing in many scenarios.
+
+In Stripe's case, an 'animate-entered' class is applied to the element at the time it is supposed to appear.
+Here's the actual CSS they use to achieve this (class names changed for simiplicity):
+
+```
+.popover {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity .25s cubic-bezier(0,1,.4,1),transform .25s cubic-bezier(.18,1.25,.4,1);
+}
+
+.popover.animate-entered {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity .25s cubic-bezier(0,1,.4,1),transform .25s cubic-bezier(.18,1.25,.4,1);
+}
+```
+
+
+## Why Stripe feels like your long-lost best friend
+
+One of the best things about this web page (and Stripe's site/documentation as a whole) is that it feels like home even if you're seeing it for the first time. This is due to their color choices, font and playful professionalism.
+
+Stripe's body font of choice is a premium font called 'Sohne Var'. It is clear and legible with smooth and rounded edges. Their color palette mostly consists of slate blue, sky blue, midnight blue and slate gray. Going off of color psychology alone, blue tends to invoke feelings of trust and security in the viewer.
+
+These style elements are used to highlight evidence-based copywriting and followed up with colorful social proof from well-known brands.
+
+<img src="/images/stripe/stripe_proof.png" />
+
+*Note: When creating a landing page with the intention to convert/establish brand trust, it is important to not only use trust logos from well-known brands, but to use those that are actually well-known by your target audience.*

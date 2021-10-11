@@ -1,16 +1,214 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+:root {
+
+  --backgroundColor: hsl(218,36%,12%);
+  --accentColor: hsl(218, 30%, 18%);
+  --primaryColor: #0077ff;
+  --primaryColorLight: #0055ff80;
+  --cardBackgroundColor: var(--accentColor);
+  --headerBackground: rgba(18, 20, 29, 0.8);
+  --inputColor: hsla(0, 0%, 100%, 0.12);
+  --inputFocusColor: hsla(0, 0%, 100%, 0.15);
+  --titleColor: #ffffff;
+  --textColor: hsl(225,25%,90%);
+  --uiLinkColor: hsla(225, 25%, 75%, 0.75);
+  --uiLinkColorHover: hsla(225, 25%, 90%, 1);
+  --uiLinkColorActive: hsla(225, 25%, 90%, 1);
+  --codePanelColor: hsla(0, 0%, 0%, 0.15);
+
+  --fontFamily: "Inter", -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+
+  --radius: 4px;
+  --radiusLarge: 10px;
+
+  --transition: 0.16s cubic-bezier(0.215,0.61,0.355,1);
+  --transitionSlow: 0.24s cubic-bezier(0.215,0.61,0.355,1);
+
+  --focus: 0 0 0 3px rgb(58 135 230/ 50%);
+
+  --inputBackground: #f1f4f7;
+  --placeholderColor: #acb9c5;
+  --errorColor: #ff5191;
+  --annotationColor: #8c9eb1;
+
+  --maskFadeColor: rgba(0,0,0,0.4);
+  --hoverOpacity: 0.6;
+
+  --cardBorder: 0 0 0 1px hsla(0, 0%, 80%, 0.08);
+
+  --headerHeight: 60px;
+  --layoutGap: 1.5rem;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.light-mode {
+  --backgroundColor: #efefef;
+  --accentColor: hsla(0, 0%, 97%, 1);
+  --cardBackgroundColor: #ffffff;
+  --cardBorder: 0 0 0 1px hsla(0, 0%, 20%, 0.08);
+  --headerBackground: #ffffff70;
+  --inputColor: hsla(0, 0%, 70%, 0.4);
+  --inputFocusColor: hsla(0, 0%, 85%, 0.4);
+  --titleColor: #12141d;
+  --textColor: #3a3a3b;
+  --uiLinkColor: hsla(225, 25%, 25%, 0.7);
+  --uiLinkColorHover: hsla(225, 25%, 25%, 0.9);
+  --uiLinkColorActive: hsla(225, 25%, 10%, 1);
+  --codePanelColor: hsla(0, 0%, 0%, 0.04);
+}
+
+.theme-transition {
+  transition: 0.3s ease !important;
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--backgroundColor);
+  font-family: var(--fontFamily);
+  font-size: 16px;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: 2px;
+  transition: var(--transitionSlow);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--titleColor);
+  scroll-margin-top: calc(70px + var(--layoutGap));
+}
+
+h1 {
+  font-size: 65px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--textColor);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+pre {
+  background-color: var(--codePanelColor);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  overflow: scroll !important;
+}
+
+code {
+  font-size: 0.9em;
+  font-family: 'Roboto Mono';
+}
+
+.stripe-btn {
+  background-color: white;
+  border: none;
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
+  transition: background-color .24s,box-shadow .24s;
+  min-height: 28px;
+  color: rgb(60, 66, 87);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stripe-btn-primary {
+  background-color: #5469d4;
+  color: white;
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(84 105 212) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
+}
+
+.stripe-btn:focus {
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 0px 4px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 3px 9px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
+}
+
+.stripe-btn-primary:focus {
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 0px 4px, rgb(0 0 0 / 12%) 0px 1px 1px 0px, rgb(84 105 212) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 8%) 0px 2px 5px 0px;
+}
+
+.stripe-btn + .stripe-btn {
+  margin-left: 1rem;
+}
+
+@keyframes popoverTranslated {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translate(-50%, -50%);
+  } 100% {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+@keyframes popover {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  } 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  } 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 40px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  code {
+    font-size: 0.9rem;
+  }
 }
