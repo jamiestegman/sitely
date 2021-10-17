@@ -59,6 +59,10 @@ const Wrapper = styled.nav`
       background-color: var(--accentColor);
       box-shadow: var(--cardBorder), 0 6px 20px -4px rgba(0, 0, 0, 0.5);
 
+      & li + li {
+        margin-left: 0;
+      }
+
       & li {
         border-top: solid 1px var(--cardBorderColor);
         padding: 1em;
