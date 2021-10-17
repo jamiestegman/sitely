@@ -36,7 +36,7 @@ const Wrapper = styled.nav`
       user-select: none;
     }
 
-    & a:not(.active):hover {
+    & li:not(.active):hover {
       color: var(--uiLinkColorHover);
       transition: var(--transition);
     }

@@ -64,12 +64,12 @@ const ArticleCard = styled.div`
     & h4 {
       font-size: 1.3em;
       margin: 0;
+      text-align: center;
     }
 
     & .tags {
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       display: grid;
-      margin-top: 0.5rem;
       grid-template-columns: repeat(5, 1fr);
       grid-gap: 0.3em;
 
