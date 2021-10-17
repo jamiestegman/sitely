@@ -107,6 +107,7 @@ function Footer(props) {
         <ColumnTitle>Links</ColumnTitle>
         <ul>
           <li><Link href="/resources">Resources</Link></li>
+          <li><Link href="/posts">Posts</Link></li>
           <li><Link href="/breakdowns">Breakdowns</Link></li>
         </ul>
       </div>

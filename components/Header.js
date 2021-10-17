@@ -23,6 +23,8 @@ const Wrapper = styled.div`
   backdrop-filter: blur(20px);
 
   @media (max-width: 600px) {
+    display: none;
+
     & a {
       padding: 0.8em;
     }

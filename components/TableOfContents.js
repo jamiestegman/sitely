@@ -1,13 +1,25 @@
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 
+function convertToSlug(Text) {
+  return Text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '-');
+}
+
 const useHeadingsData = () => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
 
   useEffect(() => {
     const headingElements = Array.from(
-      document.querySelectorAll("h1, h2, h3")
+      document.querySelectorAll("h1, h2")
     );
+
+    // Adds a 'slugified' id to all headings on the page.
+    headingElements.forEach(heading => {
+      heading.setAttribute('id', convertToSlug(heading.innerText));
+    })
 
     const newNestedHeadings = getNestedHeadings(headingElements);
     setNestedHeadings(newNestedHeadings);
@@ -26,11 +38,6 @@ const getNestedHeadings = (headingElements) => {
       nestedHeadings.push({ id, title: 'Introduction', items: [] });
     } else if (heading.nodeName === "H2") {
       nestedHeadings.push({ id, title, items: [] });
-    } else if (heading.nodeName === "H3" && nestedHeadings.length > 0) {
-      nestedHeadings[nestedHeadings.length - 1].items.push({
-        id,
-        title,
-      });
     }
   });
 

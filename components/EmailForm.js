@@ -24,14 +24,23 @@ const CTA = styled.form`
 
 function EmailForm(props) {
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(data);
 
-    // fetch('/api/form-submit-url', {
-    //   method: 'POST',
-    //   body: data,
+    // const email = e.target.querySelector('input').value;
+    // axios
+    // .put("api/mail", {
+    //   email,
+    // })
+    // .then((result) => {
+    //   if (result.status === 200) {
+    //     console.log(result.data.message)
+    //     // setLoading(false);
+    //   }
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   // setLoading(false);
     // });
   }
 
@@ -39,8 +48,8 @@ function EmailForm(props) {
   return(
     <>
       <CTA margin={props.margin} onSubmit={handleSubmit}>
-        <Input name="Email" type="email" placeholder="Enter email address" />
-        <Button primary willLoad type="submit" link="/">Get Access</Button>
+        <Input name="email" type="email" placeholder="Enter email address" />
+        <Button primary type="submit" link="/">Get Access</Button>
       </CTA>
       <Proof />
     </>

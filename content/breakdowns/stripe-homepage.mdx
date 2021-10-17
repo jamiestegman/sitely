@@ -4,11 +4,11 @@ date: 06/10/21
 title: Stripe's Homepage
 description: Stripe has a beautifully styled home page that makes use of trustworthy colors and skewed separators with consistent angles to catch your eye and direct the flow down the page. Some interesting JavaScript is employed also to create a few great effects.
 img: /images/stripe/stripe_atf.png
-img_full: /images/stripe/stripe_full.png
 website: https://stripe.com
 tags: [SaaS, B2B, Finance]
 ---
 
+<img src="/images/stripe/stripe_atf.png" />
 
 ## Creating the animated gradient
 
@@ -28,7 +28,7 @@ To achieve the hero text effect, Stripe utilises three duplicated layers of text
 > 3. *Canvas Gradient*
 > 4. Fully opaque, regular text.
 
-Put the canvas inside a shaped div with overflow hidden, set a few CSS variables for the gradient colors (you can find the ones that Stripe uses in the sidebar of this page), then stack the layers of text inside a relatively positioned wrapper and voila!
+Put the canvas inside a shaped div with overflow hidden, set a few CSS variables for the gradient colors, then stack the layers of text inside a relatively positioned wrapper and voila!
 
 
 ## Out of this world UI/UX
@@ -50,7 +50,7 @@ button:focus {
 
 Try it out on the buttons below:
 
-<div style="margin: 2rem 0;"><button class="stripe-btn stripe-btn-primary">Click me!</button> <button class="stripe-btn">Click me!</button></div>
+<div style={{margin: '2rem 0'}}><button className="stripe-btn stripe-btn-primary">Click me!</button> <button className="stripe-btn">Click me!</button></div>
 
 
 Implementing this focus state on your page elements will make everything feel a lot smoother and more interactive.

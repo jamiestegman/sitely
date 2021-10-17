@@ -12,13 +12,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const GridWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: var(--layoutGap);
+  display: flex;
+
   margin-bottom: var(--layoutGap);
+  width: 100%;
+  grid-gap: var(--layoutGap);
 
   @media (max-width: 600px) {
-    grid-template-columns: 1fr;
+    width: 100%;
   }
 `
 
@@ -26,43 +27,56 @@ const ArticleCard = styled.div`
   background-color: var(--accentColor);
   border-radius: var(--radius);
   box-shadow: var(--cardBorder);
-  padding: 30px;
+  padding: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: column;
-  text-align: center;
   overflow: hidden;
+  width: 100%;
 
   opacity: 0;
   animation: fadeInUp 0.5s ease;
   animation-fill-mode: forwards;
   animation-delay: ${props => props.delay}ms;
 
-  & > * + * {
-    margin-top: 1rem;
-  }
+  will-change: transform;
 
   & button {
-    width: 100%;
-  }
-
-  & img {
-    width: 100%;
-    border-radius: var(--radius);
-    box-shadow: var(--cardBorder);
-    opacity: 1;
+    padding: 1rem 1.8rem;
   }
 
   & h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--titleColor);
+    margin-right: 2rem;
   }
 
   & .tags {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+    flex-direction: column;
+    & h4 {
+      font-size: 1.3em;
+      margin: 0;
+    }
+
+    & .tags {
+      margin: 1rem 0;
+      display: grid;
+      margin-top: 0.5rem;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 0.3em;
+
+      & a + a {
+        margin: 0;
+      }
+    }
   }
 `
 
@@ -112,7 +126,7 @@ const Filter = styled.div`
   }
 `
 
-function Breakdowns({ posts }) {
+function Posts({ posts }) {
 
   const router = useRouter()
   const {filter} = router.query;
@@ -123,7 +137,7 @@ function Breakdowns({ posts }) {
 
   return (
     <>
-    <Header active="breakdowns" />
+    <Header active="posts" />
     <Container>
 
       <Filter>
@@ -140,14 +154,15 @@ function Breakdowns({ posts }) {
       {filter && filterPosts()}
       {posts.map((post, index) => (
         <ArticleCard key={index} delay={index * 150}>
-          {post.content.img && <img src={post.content.img} />}
-          <h4>{post.content.title}</h4>
-          <div className="tags">
-            {post.content.tags.map(tag => (
-              <Tag href={`/breakdowns?filter=${tag}`} key={tag}>{`#${tag}`}</Tag>
-            ))}
+          <div>
+            <h4>{post.content.title}</h4>
+            <div className="tags">
+              {post.content.tags.map(tag => (
+                <Tag href={`/posts?filter=${tag}`} key={tag}>{`#${tag}`}</Tag>
+              ))}
+            </div>
           </div>
-          <Button primary willLoad link={`/breakdowns/${post.slug}`}>View Breakdown</Button>
+          <Button primary willLoad link={`/posts/${post.slug}`}>View Post</Button>
         </ArticleCard>
       ))}
       </GridWrapper>
@@ -159,12 +174,12 @@ function Breakdowns({ posts }) {
 
 export const getStaticProps = async () => {
 
-  const files = fs.readdirSync(path.join('content/breakdowns'));
+  const files = fs.readdirSync(path.join('content/posts'));
 
   const posts = files.map((filename => {
     const slug = filename.replace('.mdx', '');
 
-    const markdown = fs.readFileSync(path.join('content/breakdowns', filename), 'utf-8');
+    const markdown = fs.readFileSync(path.join('content/posts', filename), 'utf-8');
     const {data: content} = matter(markdown);
 
     return {
@@ -180,4 +195,4 @@ export const getStaticProps = async () => {
   }
 }
 
-export default Breakdowns;
+export default Posts;

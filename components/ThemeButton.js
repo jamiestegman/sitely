@@ -6,7 +6,7 @@ import {HiSun, HiMoon} from 'react-icons/hi';
 const Button = styled.div`
   padding: 0.5em;
   background-color: var(--accentColor);
-  border-radius: 50%;
+  border-radius: 999px;
   box-shadow: 0 0 1px 1px var(--inputColor);
   display: flex;
   align-items: center;
@@ -18,9 +18,24 @@ const Button = styled.div`
     color: var(--titleColor);
   }
 
+  & .mobile-only {
+    display: none;
+  }
+
   @media (max-width: 600px) {
-    padding: 0.7em;
     box-shadow: 0 2px 7px -1px rgba(33, 35, 39, 0.4);
+    width: max-content;
+    box-shadow: none;
+
+    & .mobile-only {
+      display: flex;
+      margin-right: 1rem;
+    }
+
+    & svg {
+      width: 1em;
+      height: 1em;
+    }
   }
 `
 
@@ -53,7 +68,7 @@ const ThemeButton = () => {
   }
 
   return (
-    <Button onClick={themeHandler}>{ theme === 'light' ? <HiMoon /> : <HiSun /> }</Button>
+    <Button onClick={themeHandler}><span className="mobile-only">Toggle Theme</span>{ theme === 'light' ? <HiMoon /> : <HiSun /> }</Button>
   );
 };
 

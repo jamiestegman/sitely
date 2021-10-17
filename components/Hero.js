@@ -2,7 +2,7 @@ import {useRef, useState, useCallback} from 'react';
 import useClickOutside from './useClickOutside';
 
 import styled from 'styled-components';
-import EmailForm from './EmailForm';
+import Logo from './Logo';
 import Button from './Button';
 
 import {IoMdClose} from 'react-icons/io';
@@ -15,15 +15,28 @@ const Wrapper = styled.div`
   min-height: 85vh;
   text-align: center;
 
+  & .mobile-only {
+    display: none;
+  }
+
   @media (max-width: 600px) {
     min-height: auto;
     margin: var(--layoutGap) 0;
+
+    & .mobile-only {
+      display: block;
+    }
   }
 `
 
 const Title = styled.h1`
   color: var(--titleColor);
   margin-bottom: 0.75rem;
+
+  @media (max-width: 600px) {
+    font-size: 2em;
+    margin-top: 2rem;
+  }
 `
 
 const Text = styled.p`
@@ -35,11 +48,25 @@ const Text = styled.p`
   }
 `
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & button {
+    min-width: 10rem;
+  }
+
+  & > * + * {
+    margin-left: 1rem;
+  }
+`
+
 const ImageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
 
   & > div {
     position: relative;
@@ -80,8 +107,9 @@ const ImageContainer = styled.div`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
     grid-gap: 1rem;
+    margin-top: 3rem;
 
-    & a {
+    & button {
       width: 60%;
     }
   }
@@ -204,57 +232,37 @@ const Loader = styled.div`
 
 function Hero() {
 
-  const modal = useRef();
-  const [modalOpen, toggleModal] = useState(false);
-  const close = useCallback(() => toggleModal(false), []);
-  useClickOutside(modal, close);
-
-  const [modalContent, setModalContent] = useState(null);
-
-  const openPreview = type => {
-    toggleModal(true);
-    setModalContent(type);
-  }
-
-
   return(
     <Wrapper>
       <Background><div/><div/><div/></Background>
+      <span className="mobile-only"><Logo /></span>
       <Title>Resource Hub for Frontend Devs</Title>
       <Text>Articles, code snippets and tips that help developers build beautiful web experiences.</Text>
-      <EmailForm />
+      <ButtonWrapper>
+        <Button primary willLoad link="/resources">View Resources</Button>
+        <Button willLoad link="/posts">View Posts</Button>
+      </ButtonWrapper>
 
       <ImageContainer>
         <div>
           <img src="/images/stripe/stripe_atf.png" />
           <div className="hover-controls">
-            <Button primary onClick={() => openPreview('stripe-homepage')}>Preview Article</Button>
+            <Button primary willLoad link="/breakdowns/stripe-homepage">View Article</Button>
           </div>
         </div>
         <div>
           <img src="/images/mighty/mighty_atf.png" />
           <div className="hover-controls">
-            <Button primary onClick={() => openPreview('mighty-homepage')}>Preview Article</Button>
+            <Button primary willLoad link="/breakdowns/mighty-homepage">View Article</Button>
           </div>
         </div>
         <div>
           <img src="/images/intercom/intercom_atf.png" />
           <div className="hover-controls">
-            <Button primary onClick={() => openPreview('intercom-landing')}>Preview Article</Button>
+            <Button primary willLoad link="/breakdowns/intercom-landing">View Article</Button>
           </div>
         </div>
       </ImageContainer>
-
-      {modalOpen === true && (
-        <Overlay>
-          <Modal ref={modal}>
-            <Loader />
-            <iframe src={`/breakdowns/${modalContent}`} />
-            <p onClick={() => toggleModal(false)}><IoMdClose style={{marginRight: '0.3rem'}} />Close Preview</p>
-          </Modal>
-        </Overlay>
-      )}
-
     </Wrapper>
   )
 }

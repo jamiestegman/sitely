@@ -4,7 +4,7 @@ import EmailForm from './EmailForm';
 
 const Wrapper = styled.div`
   padding-top: 120px;
-  border-top: solid 1px var(--accentColor);
+  border-top: solid 1px var(--inputColor);
   display: flex;
   justify-content: center;
   align-items: center;

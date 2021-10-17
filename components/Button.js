@@ -15,7 +15,7 @@ const Wrapper = styled.button`
   text-decoration: none;
 
   width: max-content;
-  padding: 0.8em 1.3em;
+  padding: 1.2em 1.5em;
   font-weight: 500;
   font-size: 0.9em;
   background-color: var(--accentColor);
@@ -23,6 +23,7 @@ const Wrapper = styled.button`
   font-family: var(--fontFamily);
   transition: var(--transitionSlow);
   border-radius: var(--radius);
+  box-shadow: var(--cardBorder);
   cursor: pointer;
   user-select: none;
 
@@ -97,23 +98,23 @@ function Button(props) {
 
   // If the button is NOT a type="submit" button, wrap it in a Next Link.
   return (
-    props.type !== 'submit' ? (
-      <Link href={props.link ? props.link : ""}>
-        <Wrapper className={`${props.primary && "primary"} ${loading && "loading"}`}
-        onClick={handleClick}
-        >
-          {props.children}
-          {loading && <Loader />}
-        </Wrapper>
-      </Link>
-    ) : (
-      <Wrapper className={`${props.primary && "primary"} ${loading && "loading"}`}
+    props.type === 'submit' ? (
+      <Wrapper className={`${props.primary ? "primary": null} ${loading ? "loading" : null}`}
       onClick={handleClick}
       href={props.link}
       >
         {props.children}
         {loading && <Loader />}
       </Wrapper>
+    ) : (
+      <Link href={props.link ? props.link : ""}>
+        <Wrapper className={`${props.primary ? "primary" : null} ${loading ? "loading" : null}`}
+        onClick={handleClick}
+        >
+          {props.children}
+          {loading && <Loader />}
+        </Wrapper>
+      </Link>
     )
 
   );
